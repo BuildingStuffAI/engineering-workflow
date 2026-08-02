@@ -1,0 +1,12 @@
+{
+  "name": "engineering-workflow",
+  "displayName": "Engineering Workflow",
+  "version": "1.1.0",
+  "description": "General software-engineering workflow discipline: plan before code, one-action functions, test before/during/after, git/PR gating, destructive-action safety, secret hygiene, version-bump hygiene, file-creation approval, ticket discipline. App-agnostic — usable in any repo.",
+  "author": {
+    "name": "Aviel Pahima",
+    "email": "aviel.p@angelo.ai"
+  },
+  "license": "MIT",
+  "keywords": ["workflow", "engineering-process", "planning", "testing", "git", "release-hygiene"]
+}

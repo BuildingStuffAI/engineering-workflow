@@ -1,0 +1,17 @@
+{
+  "name": "engineering-workflow-marketplace",
+  "owner": {
+    "name": "Aviel Pahima"
+  },
+  "metadata": {
+    "description": "Single-plugin marketplace distributing the engineering-workflow skill to the team.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "engineering-workflow",
+      "description": "General software-engineering workflow discipline: plan before code, one-action functions, test before/during/after, git/PR gating, destructive-action safety, secret hygiene, version-bump hygiene, file-creation approval, ticket discipline. App-agnostic.",
+      "source": "./"
+    }
+  ]
+}
