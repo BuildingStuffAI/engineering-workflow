@@ -19,6 +19,12 @@ the risk. Before touching or removing a function, find every caller and every
 connected file — "I changed the function" isn't done until you know what else
 touches it. Right-size the plan to the task.
 
+Break a multi-part mission into small, independently-verifiable steps.
+Finish and verify one step before starting the next, even when nothing
+technically blocks doing them in parallel — don't duplicate an unverified
+change across multiple targets (repos, files, environments) and find out
+together whether it worked. Slow and confirmed beats fast and unconfirmed.
+
 ## 2. Stay modular, stay scoped
 
 - New feature/helper/"one more action" → new function, new file if it's a
