@@ -1,12 +1,22 @@
 # engineering-workflow
 
 A Claude Code skill/plugin encoding general software-engineering workflow
-discipline — plan before code, one-action functions, test before/during/after,
-destructive-action safety, secret hygiene, git/PR gating, version-bump hygiene,
-file-creation approval, ticket discipline. App-agnostic: no project-specific
+discipline — plan before code, mission decomposition into small verified
+steps, one-action functions, evidence-before-claims verification, bounded
+loop-until-verified, destructive-action safety, secret hygiene, git/PR
+gating, version-bump hygiene, file-creation approval, ticket discipline, and
+using specialized skills/plugins (debugging, TDD, planning, code review,
+design) instead of reinventing them. App-agnostic: no project-specific
 content, usable in any repo/language.
 
-See [`SKILL.md`](SKILL.md) for the full rule set.
+`SKILL.md` is a compact index; the detail lives one level deep in
+[`reference/`](reference/):
+
+- [`planning-and-scope.md`](reference/planning-and-scope.md)
+- [`verification.md`](reference/verification.md)
+- [`git-and-safety.md`](reference/git-and-safety.md)
+- [`release-and-tickets.md`](reference/release-and-tickets.md)
+- [`using-specialized-skills.md`](reference/using-specialized-skills.md)
 
 ## Install (team)
 

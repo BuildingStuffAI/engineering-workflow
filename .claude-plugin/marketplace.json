@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "engineering-workflow",
-      "description": "General software-engineering workflow discipline: plan before code, one-action functions, test before/during/after, git/PR gating, destructive-action safety, secret hygiene, version-bump hygiene, file-creation approval, ticket discipline. App-agnostic.",
+      "description": "General software-engineering workflow discipline: plan-then-decompose, one-action functions, evidence-before-claims verification with bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, version-bump hygiene, file-creation approval, ticket discipline, and using specialized skills/plugins instead of reinventing them. App-agnostic.",
       "source": "./"
     }
   ]

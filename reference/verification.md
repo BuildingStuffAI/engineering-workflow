@@ -1,0 +1,64 @@
+# Verification and testing
+
+## Contents
+- The gate: evidence before claims
+- Test before, during, and after
+- Loop until verified — but bounded
+- Red flags
+
+## The gate: evidence before claims
+
+**No completion, fix, or passing claim without a fresh verification command run
+in this exchange.** "Should work now," "looks correct," or trusting a previous
+run are not evidence.
+
+Before claiming any status:
+1. Identify what command actually proves the claim (test suite, build, the
+   specific reproduction of the original bug).
+2. Run it, fresh and in full — not a partial/cached check.
+3. Read the real output: exit code, failure count, not just the last line.
+4. Only then state the claim — with the evidence, not instead of it. If the
+   evidence doesn't support the claim, report the actual state.
+
+If you can't run the verification (no test exists, can't access the running
+app), say that explicitly rather than implying you verified something you
+didn't.
+
+## Test before, during, and after
+
+- **Before**: confirm the current baseline is actually green before you start.
+- **During**: a new function/feature gets its test alongside it — real edge
+  cases, not one happy path.
+- **After**: re-run the full suite, not just the new test. For UI/behavior
+  changes, verify in the running app if at all possible. "Verified in
+  isolation" ≠ "verified together" — do one combined regression pass across
+  the whole change before calling it done, not just per-piece checks.
+
+## Loop until verified — but bounded
+
+Iterating until a real check passes is a good pattern, not a bad one — but
+only under three conditions:
+
+1. **The check is real and fresh each time** — an exit code, a failing-then-
+   passing test — never "looks right now."
+2. **Each attempt is informed by why the last one failed**, not a blind retry.
+   Retrying the same fix expecting a different result is thrashing, not
+   iteration — if you don't know why it failed, that's a debugging problem to
+   solve first, not another attempt to burn.
+3. **There's a hard cap.** After a small number of failed attempts (three is a
+   reasonable default), stop and report to the user with what you tried and
+   what you learned, instead of continuing to loop.
+
+## Red flags
+
+Treat any of these, in your own output, as a signal to stop and actually
+verify before continuing:
+
+| Phrase / behavior | What to do instead |
+|---|---|
+| "Should pass now" / "should work" | Run it. |
+| Expressing satisfaction before running the check ("Great, done!") | Run the check first, then report. |
+| About to commit/push/PR without having run anything this turn | Run the relevant check first. |
+| Trusting a subagent's/tool's own "success" report | Verify independently (diff, output, re-run). |
+| "Partial check is enough" / "the linter passed" | A linter is not a compiler; a partial check is not a full one. |
+| Retrying the same fix a second time with no new information | Stop — go find the actual root cause first. |
