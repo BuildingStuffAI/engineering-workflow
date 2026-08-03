@@ -1,6 +1,6 @@
 ---
 name: engineering-workflow
-description: General software-engineering workflow discipline for any repo — plan before code, mission decomposition into small verified steps, one-action functions, evidence-before-claims verification, bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, version-bump hygiene, file-creation approval, ticket discipline, and using specialized skills/plugins (debugging, TDD, planning, code review, design) instead of reinventing them. Use at the start of and throughout any non-trivial engineering task (fix, feature, refactor) in any language or codebase.
+description: General software-engineering workflow discipline for any repo — plan before code, mission decomposition into small verified steps, one-action functions, evidence-before-claims verification, bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, merge-conflict resolution discipline, version-bump hygiene, file-creation approval, ticket discipline, and using specialized skills/plugins (debugging, TDD, planning, code review, design) instead of reinventing them. Use at the start of and throughout any non-trivial engineering task (fix, feature, refactor) in any language or codebase, including when resolving a merge conflict.
 ---
 
 # Engineering Workflow
@@ -39,6 +39,10 @@ Everything below expands on these two, plus adjacent discipline.
   shared branches); secrets/review before push; commit and push to a branch
   freely, but gate PRs and pushes-to-main as a separate explicit ask every
   time; per-repo delivery conventions differ, confirm don't assume.
+- **[Merge conflicts](reference/merge-conflicts.md)** — treat a conflict as a
+  task, not a keystroke: plan before resolving, never blindly take "ours" or
+  "theirs" on a whole file, re-verify and re-review after resolving, escalate
+  when the other side's intent is unclear.
 - **[Release and tickets](reference/release-and-tickets.md)** — bump version
   markers for shipped-behavior changes; a version bump is a text edit, not a
   build — don't build/ship unless asked; ticket discipline scoped to the

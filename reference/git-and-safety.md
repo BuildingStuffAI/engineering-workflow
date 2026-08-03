@@ -40,3 +40,13 @@ Sibling repos in the same family/org can have genuinely different delivery
 conventions — one may require branch → PR → review, another may push straight
 to `main`. Confirm per-repo, don't generalize one repo's stated rule to its
 siblings without checking.
+
+## Merge conflicts
+
+A conflict at merge/rebase time is not a fast keystroke problem — it's a real
+code change with two intents colliding, and it gets the same plan-first,
+verify-after treatment as everything else in this skill. See
+[merge-conflicts.md](merge-conflicts.md) for the full procedure: detect
+before assuming clean, never blindly take "ours"/"theirs" on a whole file,
+re-verify and re-review after resolving, escalate when the other side's
+intent is unclear.
