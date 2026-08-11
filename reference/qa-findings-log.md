@@ -55,12 +55,18 @@ in this pass (infra change, out of scope for a QA verification session).
   it), and confirmed by **actually running** the new regression test
   (`unifiedProfilePlatformVariant.test.tsx`, includes a chevron
   toggle-collapse-expand assertion) against the real merged tip in a
-  disposable worktree — 9/9 pass. Live-UI gap: didn't find a real profile
-  with gallery images in the searched-history to click-verify visually in
-  this session (galleries only render when `galleryItems.length > 0`) —
-  relied on the executed regression test as the live-code evidence instead.
-  Not a blocker; note for a future pass to specifically seed/find a
-  gallery-bearing profile if a fully visual confirmation is wanted.
+  disposable worktree — 9/9 pass. **Live-UI gap closed in a follow-up pass
+  the same day**: the first two profiles checked (Tim Cook, Adam Agensky) had
+  no gallery (renders only when `galleryItems.length > 0`); used the `find`
+  tool to search the accessibility tree for a "Gallery" heading across
+  history entries rather than scrolling each one blind, found one on a real
+  profile, and clicked the chevron closed then open on production — photos
+  actually unmounted and remounted both directions, matching the regression
+  test's assertion. **Lesson**: when a UI element only appears
+  conditionally, don't give up after 1-2 profiles come up empty — use an
+  accessibility-tree search (`find`/`read_page`) to locate a real instance
+  instead of manually sampling, especially when live-clicking is the whole
+  point of the check.
 
 - **SCOVER-92** (duplicate "Category" placeholder in idle preview, PR #183)
   — **PASS**. Root cause was a hardcoded label array
