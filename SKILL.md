@@ -1,6 +1,6 @@
 ---
 name: engineering-workflow
-description: General software-engineering workflow discipline for any repo — plan before code, mission decomposition into small verified steps, one-action functions, evidence-before-claims verification, bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, version-bump hygiene, file-creation approval, ticket discipline, post-merge/production QA verification with a persistent findings log, and using specialized skills/plugins (debugging, TDD, planning, code review, design) instead of reinventing them. Use at the start of and throughout any non-trivial engineering task (fix, feature, refactor) in any language or codebase, and when verifying already-merged or deployed work actually works.
+description: General software-engineering workflow discipline for any repo — plan before code, mission decomposition into small verified steps, one-action functions, evidence-before-claims verification, bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, merge-conflict resolution discipline, version-bump hygiene, file-creation approval, ticket discipline, post-merge/production QA verification with a persistent findings log, and using specialized skills/plugins (debugging, TDD, planning, code review, design) instead of reinventing them. Use at the start of and throughout any non-trivial engineering task (fix, feature, refactor) in any language or codebase, including when resolving a merge conflict or verifying already-merged/deployed work actually works.
 ---
 
 # Engineering Workflow
@@ -40,6 +40,10 @@ Everything below expands on these two, plus adjacent discipline.
   freely, but gate PRs and pushes-to-main as a separate explicit ask every
   time; a hard-TL adversarial subagent review pass before opening a PR;
   per-repo delivery conventions differ, confirm don't assume.
+- **[Merge conflicts](reference/merge-conflicts.md)** — treat a conflict as a
+  task, not a keystroke: plan before resolving, never blindly take "ours" or
+  "theirs" on a whole file, re-verify and re-review after resolving, escalate
+  when the other side's intent is unclear.
 - **[Release and tickets](reference/release-and-tickets.md)** — bump version
   markers for shipped-behavior changes; a version bump is a text edit, not a
   build — don't build/ship unless asked; ticket discipline scoped to the
