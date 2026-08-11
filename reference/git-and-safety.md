@@ -75,6 +75,20 @@ conventions — one may require branch → PR → review, another may push strai
 to `main`. Confirm per-repo, don't generalize one repo's stated rule to its
 siblings without checking.
 
+## Shared skill/plugin repos are shared working directories too
+
+A skill or plugin's own repo (e.g. this one) gets edited directly — no
+worktree isolation — often by more than one concurrent Claude session at
+once, since nothing about "editing a skill" signals "treat this like a
+shared codebase" the way a project repo does. It is one. Before committing
+here: `git status` to see what's already sitting uncommitted (another
+session's in-progress edit, not junk — see "Destructive actions" above), and
+`git fetch`/`git pull` before pushing, since another session may have pushed
+its own commit while you were working. A push rejected for "fetch first" is
+expected here, not exceptional — merge properly (never blindly take "ours"
+or "theirs" on a file two sessions both touched, see
+[merge-conflicts.md](merge-conflicts.md)) rather than force-pushing over it.
+
 ## Merge conflicts
 
 A conflict at merge/rebase time is not a fast keystroke problem — it's a real

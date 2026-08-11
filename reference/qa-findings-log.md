@@ -119,3 +119,24 @@ in this pass (infra change, out of scope for a QA verification session).
 **Cross-ticket confirmation**: no ticket's fix depends on, or was broken
 by, any other ticket's fix in this batch — all 4 are independently correct
 and independently deployed.
+
+### Process retrospective (why this session changed the skill itself)
+
+Two process gaps surfaced, both now folded into
+[qa-and-production-verification.md](qa-and-production-verification.md) and
+[git-and-safety.md](git-and-safety.md) rather than left as one-off learning:
+
+1. The first full QA report reported "PASS" for all 4 items, but 2 of the 4
+   (SCOVER-90, SCOVER-52) actually only had code-read + executed-test
+   evidence, not a live click-through — the user had to explicitly ask
+   "did you also run a UI visual test?" to surface that gap. A verdict
+   should name its evidence tier so that question is never necessary — see
+   "Name your evidence tier" in the process doc.
+2. Separately, this repo (the skill itself) is a shared working directory
+   edited by more than one concurrent Claude session — mid-task, a peer
+   session had already made local, uncommitted edits to `git-and-safety.md`
+   in this exact directory, and `git push` was later rejected because a
+   different, older commit had landed on `origin/main` in the meantime.
+   Both were resolved via a real 3-way merge (not overwritten), see
+   "Shared skill/plugin repos are shared working directories too" in
+   `git-and-safety.md`.

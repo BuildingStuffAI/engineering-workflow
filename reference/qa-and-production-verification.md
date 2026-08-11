@@ -74,6 +74,19 @@ this works in production" / "QA this ticket."
    part of the check (e.g. a sandboxed browser that can't resize), say so
    explicitly rather than skip silently — note exactly what wasn't checked
    and why, so a human knows the gap exists.
+   - **If the thing you need to click only renders conditionally** (a
+     section that appears only when certain data exists, an empty vs.
+     populated state), don't manually sample real records hoping to find
+     one — after 1-2 misses, search for it directly (e.g. an
+     accessibility-tree/DOM search tool, or a direct query against whatever
+     the app's data source is) rather than continuing to guess. Manual
+     sampling wastes turns and can wrongly end in "couldn't find one to
+     test" when a real instance existed all along.
+   - **If the environment has real usage limits** (credits, quotas, a real
+     paid account), prefer checking against data that already exists
+     (search history, prior results) before triggering something that
+     consumes a new unit — a live check should confirm behavior, not run up
+     costs it doesn't need to.
 
 5. **Log every finding — pass or reject — before moving on.** See
    [qa-findings-log.md](qa-findings-log.md): a real fix suggestion or root
@@ -84,6 +97,29 @@ this works in production" / "QA this ticket."
    verified, still worth re-checking against live prod before closing" from
    turning into blind re-litigation each time (see the "known non-issue"
    pattern in the log).
+
+## Name your evidence tier — never report a bare "PASS"
+
+Code-read, executed-test-on-the-merged-tip, and live-UI-click-through are
+three different strengths of evidence, and a verdict is incomplete without
+saying which one it rests on. State it explicitly per item, e.g.:
+
+- "PASS (code + executed test only)" — you read the merged code and/or ran
+  its test suite against the real merged tip, but did not click it live.
+- "PASS (live-confirmed)" — you actually drove the real running app and
+  observed the behavior yourself.
+
+This matters because the first two steps of this process (deploy
+confirmation, cross-PR collision check) and step 3 (running tests) can all
+come back clean while step 4 (the actual live check) never happened for a
+given item — a plain "PASS" doesn't tell a reader which of those happened.
+Someone relying on the verdict needs to know whether "verified" means
+"the code and its own tests look right" or "I watched it work" — those
+justify different amounts of confidence, and only one of them is what
+"verify this works in production" is actually asking for by default. If
+asked to verify production behavior and you only have code/test-level
+evidence for some items, say so and go get the live evidence rather than
+letting a tier-1 verdict pass as if it were tier-3.
 
 ## Suggested agent split (when using subagents for this)
 
@@ -117,3 +153,10 @@ tickets/PRs is large enough that manual tracking becomes the bottleneck.
 - Silently dropping a finding that seems minor "since it's not blocking" —
   log it anyway (see the findings log's non-blocking-gap entries) so it
   isn't rediscovered from zero next time.
+- Reporting a bare "PASS" across several items without naming which
+  evidence tier backs each one — see "Name your evidence tier" above. If a
+  human has to ask "did you actually click it, or just check the code?"
+  after your verdict, the verdict was underspecified.
+- Giving up on a live check for a conditionally-rendered element after
+  one or two samples come up empty, instead of searching for a real
+  instance directly.
