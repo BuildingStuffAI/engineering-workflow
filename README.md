@@ -20,7 +20,17 @@ repo/language.
 - [`release-and-tickets.md`](reference/release-and-tickets.md)
 - [`using-specialized-skills.md`](reference/using-specialized-skills.md)
 - [`qa-and-production-verification.md`](reference/qa-and-production-verification.md)
-- [`qa-findings-log.md`](reference/qa-findings-log.md) — cumulative, append-only QA findings across sessions
+- [`self-improvement.md`](reference/self-improvement.md) — how this skill
+  compounds: per-area findings logs, distilled periodically into this
+  skill's own rules
+
+### Findings logs (`reference/findings/`)
+
+Per-area, low-friction logs — created on demand, not pre-provisioned. See
+[`self-improvement.md`](reference/self-improvement.md) for the format and
+the distillation process that keeps these from growing forever.
+
+- [`findings/qa.md`](reference/findings/qa.md) — seeded, active
 
 ## Install (team)
 

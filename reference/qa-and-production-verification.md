@@ -89,7 +89,7 @@ this works in production" / "QA this ticket."
      costs it doesn't need to.
 
 5. **Log every finding — pass or reject — before moving on.** See
-   [qa-findings-log.md](qa-findings-log.md): a real fix suggestion or root
+   [findings/qa.md](findings/qa.md): a real fix suggestion or root
    cause, once found, should never be lost to a single conversation. Append
    in the format that file describes, whether the verdict was PASS or
    REJECT — a documented PASS with its evidence is what lets the next QA

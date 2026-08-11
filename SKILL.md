@@ -1,6 +1,6 @@
 ---
 name: engineering-workflow
-description: General software-engineering workflow discipline for any repo — plan before code, mission decomposition into small verified steps, one-action functions, evidence-before-claims verification, bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, merge-conflict resolution discipline, version-bump hygiene, file-creation approval, ticket discipline, post-merge/production QA verification with a persistent findings log, and using specialized skills/plugins (debugging, TDD, planning, code review, design) instead of reinventing them. Use at the start of and throughout any non-trivial engineering task (fix, feature, refactor) in any language or codebase, including when resolving a merge conflict or verifying already-merged/deployed work actually works.
+description: General software-engineering workflow discipline for any repo — plan before code, mission decomposition into small verified steps, one-action functions, evidence-before-claims verification, bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, merge-conflict resolution discipline, version-bump hygiene, file-creation approval, ticket discipline, post-merge/production QA verification with a persistent findings log, self-improvement via per-area findings logs distilled back into the skill's own rules, and using specialized skills/plugins (debugging, TDD, planning, code review, design) instead of reinventing them. Use at the start of and throughout any non-trivial engineering task (fix, feature, refactor) in any language or codebase, including when resolving a merge conflict, verifying already-merged/deployed work actually works, or logging/distilling a session's findings back into this skill.
 ---
 
 # Engineering Workflow
@@ -58,9 +58,16 @@ Everything below expands on these two, plus adjacent discipline.
   deployed (don't assume push = live, especially with concurrency-cancelled
   deploy pipelines), re-checking the current merged tip (not each PR's own
   branch) for cross-PR collisions, running tests against the real merged
-  code, a live check in the running app, and logging every finding — pass or
-  reject — to [reference/qa-findings-log.md](reference/qa-findings-log.md)
-  so nothing gets rediscovered from scratch next time.
+  code, a live check in the running app, naming your evidence tier, and
+  logging every finding — pass or reject — to
+  [reference/findings/qa.md](reference/findings/qa.md) so nothing gets
+  rediscovered from scratch next time.
+- **[Self-improvement](reference/self-improvement.md)** — how this skill
+  compounds without bloating: log real findings cheaply per-area in
+  [reference/findings/](reference/findings/), then periodically distill
+  anything durable into this skill's own rule text and thin the log —
+  keeps this repo app-agnostic (generalizable lesson first, project
+  specifics optional) even though multiple projects feed it over time.
 
 ---
 

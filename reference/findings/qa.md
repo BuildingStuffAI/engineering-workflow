@@ -5,7 +5,7 @@ checked, the verdict, the evidence, and any suggested fix. Read the relevant
 entries before starting a new QA pass on the same repo/area (a documented
 PASS with its reasoning is what lets you skip re-deriving it from scratch;
 a documented REJECT-with-fix is what lets the next person not repeat the
-same mistake). See [qa-and-production-verification.md](qa-and-production-verification.md)
+same mistake). See [qa-and-production-verification.md](../qa-and-production-verification.md)
 for the process this log supports.
 
 **Format per entry:** date, repo, tickets/PRs, verdict per item, evidence,
@@ -123,8 +123,8 @@ and independently deployed.
 ### Process retrospective (why this session changed the skill itself)
 
 Two process gaps surfaced, both now folded into
-[qa-and-production-verification.md](qa-and-production-verification.md) and
-[git-and-safety.md](git-and-safety.md) rather than left as one-off learning:
+[qa-and-production-verification.md](../qa-and-production-verification.md) and
+[git-and-safety.md](../git-and-safety.md) rather than left as one-off learning:
 
 1. The first full QA report reported "PASS" for all 4 items, but 2 of the 4
    (SCOVER-90, SCOVER-52) actually only had code-read + executed-test
