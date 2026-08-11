@@ -1,12 +1,12 @@
 {
   "name": "engineering-workflow",
   "displayName": "Engineering Workflow",
-  "version": "2.0.0",
-  "description": "General software-engineering workflow discipline: plan-then-decompose, one-action functions, evidence-before-claims verification with bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, version-bump hygiene, file-creation approval, ticket discipline, and using specialized skills/plugins instead of reinventing them. App-agnostic — usable in any repo.",
+  "version": "2.1.0",
+  "description": "General software-engineering workflow discipline: plan-then-decompose, one-action functions, evidence-before-claims verification with bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, hard-TL adversarial review before opening a PR, version-bump hygiene, file-creation approval, ticket discipline, post-merge/production QA verification with a persistent findings log, and using specialized skills/plugins instead of reinventing them. App-agnostic — usable in any repo.",
   "author": {
     "name": "Aviel Pahima",
     "email": "aviel.p@angelo.ai"
   },
   "license": "MIT",
-  "keywords": ["workflow", "engineering-process", "planning", "testing", "git", "release-hygiene"]
+  "keywords": ["workflow", "engineering-process", "planning", "testing", "git", "release-hygiene", "qa"]
 }

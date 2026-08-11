@@ -1,6 +1,6 @@
 ---
 name: engineering-workflow
-description: General software-engineering workflow discipline for any repo — plan before code, mission decomposition into small verified steps, one-action functions, evidence-before-claims verification, bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, version-bump hygiene, file-creation approval, ticket discipline, and using specialized skills/plugins (debugging, TDD, planning, code review, design) instead of reinventing them. Use at the start of and throughout any non-trivial engineering task (fix, feature, refactor) in any language or codebase.
+description: General software-engineering workflow discipline for any repo — plan before code, mission decomposition into small verified steps, one-action functions, evidence-before-claims verification, bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, version-bump hygiene, file-creation approval, ticket discipline, post-merge/production QA verification with a persistent findings log, and using specialized skills/plugins (debugging, TDD, planning, code review, design) instead of reinventing them. Use at the start of and throughout any non-trivial engineering task (fix, feature, refactor) in any language or codebase, and when verifying already-merged or deployed work actually works.
 ---
 
 # Engineering Workflow
@@ -38,7 +38,8 @@ Everything below expands on these two, plus adjacent discipline.
   safety (`git status` before anything destructive, never force-push to
   shared branches); secrets/review before push; commit and push to a branch
   freely, but gate PRs and pushes-to-main as a separate explicit ask every
-  time; per-repo delivery conventions differ, confirm don't assume.
+  time; a hard-TL adversarial subagent review pass before opening a PR;
+  per-repo delivery conventions differ, confirm don't assume.
 - **[Release and tickets](reference/release-and-tickets.md)** — bump version
   markers for shipped-behavior changes; a version bump is a text edit, not a
   build — don't build/ship unless asked; ticket discipline scoped to the
@@ -48,6 +49,14 @@ Everything below expands on these two, plus adjacent discipline.
   skill or plugin before hand-rolling the equivalent inline; close the loop
   (self-review, update docs, proactive context-limit handoff, get it right on
   a branch before promoting to production).
+- **[QA and production verification](reference/qa-and-production-verification.md)**
+  — re-verifying already-merged/shipped work: confirming merge actually
+  deployed (don't assume push = live, especially with concurrency-cancelled
+  deploy pipelines), re-checking the current merged tip (not each PR's own
+  branch) for cross-PR collisions, running tests against the real merged
+  code, a live check in the running app, and logging every finding — pass or
+  reject — to [reference/qa-findings-log.md](reference/qa-findings-log.md)
+  so nothing gets rediscovered from scratch next time.
 
 ---
 

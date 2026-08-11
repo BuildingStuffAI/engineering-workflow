@@ -4,6 +4,7 @@
 - Destructive actions
 - Secrets and review before push
 - Commit/push freely, gate PRs explicitly
+- Hard-TL adversarial review before opening a PR
 - Per-repo conventions differ
 
 ## Destructive actions
@@ -33,6 +34,39 @@ confirm before it goes anywhere.
   `main` where that's convention) is a separate, explicit ask every time —
   even mid-session, even if an earlier PR this session was authorized. A
   green light once is not a standing green light.
+
+## Hard-TL adversarial review before opening a PR
+
+Before opening a PR (once tests/tsc/build are green and the diff is what you
+intend to ship), run one adversarial review pass — dispatch a fresh
+subagent with no context from your work, told explicitly to act as a very
+hard, skeptical tech lead trying to find real problems, not rubber-stamp.
+Give it the diff (or `git show`/`git diff <base>`), the root-cause story, and
+a concrete checklist of specific things to hunt for (not "review this" —
+name the actual risk vectors: wrong-value substitutions, missed sibling
+instances of the same bug elsewhere in the repo, whether existing tests would
+actually catch a regression of this exact fix, stale-base/merge risk, and
+anything scope-adjacent that changed but shouldn't have). Require it to
+verify claims itself (grep, re-run commands) rather than trust the diff's own
+commit message, and to report findings as MUST-FIX vs. nice-to-have vs.
+non-issues-checked-and-ruled-out — not a bare "looks good."
+
+- Why: a single self-review after writing the fix tends to confirm the
+  author's own framing rather than challenge it. An independent, adversarial
+  pass with no prior context catches the class of bug a same-context review
+  misses — e.g. a plausible-looking token/value substitution that's subtly
+  wrong, or a second instance of the same root cause elsewhere in the repo.
+  This is cheap (one subagent call) relative to a bug re-surfacing in review
+  or production. See `sherlock-hard-tl-review-pattern` project memory for
+  concrete prior catches from this pattern (a regex fix, a fallback chain, a
+  cross-repo redirect fix, a billing double-charge, a discarded-async-result
+  bug) — the recurring blind spot it catches is "what/who else reaches this
+  state."
+- How to apply: proportional to the change's risk, not its line count — a
+  five-line CSS fix in a shared design-token file still warrants a pass if
+  it's touching something other code depends on; a pure rename in a single
+  call site may not need one. Fix whatever the review confirms as real,
+  re-verify, then proceed to the PR/push gate above.
 
 ## Per-repo conventions differ
 

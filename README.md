@@ -17,6 +17,8 @@ content, usable in any repo/language.
 - [`git-and-safety.md`](reference/git-and-safety.md)
 - [`release-and-tickets.md`](reference/release-and-tickets.md)
 - [`using-specialized-skills.md`](reference/using-specialized-skills.md)
+- [`qa-and-production-verification.md`](reference/qa-and-production-verification.md)
+- [`qa-findings-log.md`](reference/qa-findings-log.md) — cumulative, append-only QA findings across sessions
 
 ## Install (team)
 
