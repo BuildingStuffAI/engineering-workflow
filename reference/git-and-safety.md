@@ -37,6 +37,17 @@ confirm before it goes anywhere.
 
 ## Hard-TL adversarial review before opening a PR
 
+**A same-context self-review is not the hard-TL review, no matter what you
+call it.** Re-reading your own diff yourself, in the same context you wrote
+it in, and labeling that pass "a hard-TL review" or "an adversarial review"
+does not satisfy this gate — it's the exact self-confirming review this gate
+exists to replace, wearing the gate's name. The defining requirement is a
+**separate dispatch**: a distinct subagent/tool invocation that starts with
+no context from your own work and is only given the diff, the root-cause
+story, and the checklist below. If you didn't actually dispatch something
+separate, you haven't done this yet, regardless of how the review you did
+run is described.
+
 Before opening a PR (once tests/tsc/build are green and the diff is what you
 intend to ship), run one adversarial review pass with no context from your
 own work, told explicitly to act as a very hard, skeptical tech lead trying

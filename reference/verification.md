@@ -64,3 +64,4 @@ verify before continuing:
 | Retrying the same fix a second time with no new information | Stop — go find the actual root cause first. |
 | "Already did this gate earlier in the session, this is a small follow-up" | Wrong — each new edit/branch/PR re-arms its gate independently. See SKILL.md "Gates persist for the whole mission." |
 | Asked "did you do X?" (run tests, use hard-TL review, etc.) | Re-check the actual transcript/diff/git log/test output for evidence before answering. If there's no evidence, say so — don't answer from memory or assume it happened because it usually does. |
+| Calling a same-context self-review "the hard-TL review" / "an adversarial review" | Not the same thing. If you didn't dispatch a genuinely separate subagent/tool with no context from your own work, you haven't run it — see git-and-safety.md's "Hard-TL adversarial review." |
