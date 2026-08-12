@@ -30,10 +30,8 @@ technique); wholesale spec-driven-development tooling adoption (product-
 specific, would break the app-agnostic constraint — the generalizable
 kernel was extracted separately, see proposals).
 
-Proposed (pending user adopt/reject, not yet in the reference docs):
-1. Vary review-pass order/framing (not just lens) when running 2+ reviewers
-   on one diff; weight multi-pass-convergent findings over singleton flags.
-2. Destructive-action containment for the *during/after* moment (already
-   underway or just happened), distinct from the existing pre-check.
-3. Write acceptance criteria as agent-checkable commands during planning,
-   not prose re-read at completion time.
+Promoted into reference/git-and-safety.md and reference/planning-and-scope.md
+on 2026-08-12 (v2.5.0): all three proposals adopted — (1) review-pass
+order/framing variance + convergent-finding weighting, (2) destructive-action
+containment for the during/after moment, (3) acceptance criteria as
+agent-checkable commands written during planning.

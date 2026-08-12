@@ -16,6 +16,15 @@ connected file — "I changed the function" isn't done until you know what else
 touches it. Right-size the plan to the task: a one-line plan for a typo, a
 full plan for a multi-file change. Don't ceremony-gate trivial work.
 
+When the plan has acceptance criteria or a spec to satisfy, write each
+criterion as something a command can check ("returns matching results
+within 200ms," "field is non-null after Z") rather than prose to be
+re-read at the end. Decide during planning what will actually be run to
+prove each criterion true — this is what the evidence gate in
+[verification.md](verification.md) gets run against later; leaving it
+implicit invites eyeballing the spec at completion time instead of
+checking it against something real.
+
 ## Break missions into small, verified steps
 
 Break a multi-part mission into small, independently-verifiable steps. Finish

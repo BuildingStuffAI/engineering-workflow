@@ -3,13 +3,22 @@
 All notable changes to this skill are recorded here. Versions match
 `.claude-plugin/plugin.json`.
 
-## Unreleased
+## 2.5.0
 
 - Closed a same-context-self-review loophole in the hard-TL gate: a diff
   re-read in the same context it was written in doesn't satisfy the gate
   just because it's labeled "a hard-TL review" — only a genuinely separate
   dispatch does. Found via a paired control/test pressure test (subagents
   with and without the v2.4.0 wording, identical time-pressure scenario).
+- First frontier scan, adopted three findings: (1) vary review-pass
+  order/framing, not just lens, when running 2+ reviewers, and weight
+  multi-pass-convergent findings over singletons; (2) destructive-action
+  containment for the during/after moment (already underway or already
+  happened), distinct from the existing pre-check; (3) write acceptance
+  criteria as agent-checkable commands during planning, not prose re-read
+  at completion time.
+- Added `CHANGELOG.md` and per-area findings logs for git-and-safety and
+  self-improvement, seeded with this release's pressure-test results.
 
 ## 2.4.0
 

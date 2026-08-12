@@ -17,6 +17,13 @@
 - Unfamiliar state (a stray branch, an uncommitted file, a lock file) is
   probably someone's in-progress work — investigate before deleting or
   overwriting it, don't assume it's junk.
+- **If a destructive action turns out to already be underway or to have
+  already happened unexpectedly** (wrong scope, wrong target, a bug that
+  bypassed an explicit stop instruction) — the first move is containment:
+  stop, report exactly what happened and its actual blast radius, and wait
+  for direction. Don't keep executing further steps or gathering more
+  evidence while the risk is still live — "let me confirm what happened
+  first" is not a reason to take another action before stopping.
 
 ## Secrets and review before push
 
@@ -74,7 +81,13 @@ If using a multi-agent orchestration tool, prefer 2-3 reviewers with
 security/data-integrity, would-existing-tests-catch-a-regression) over more
 copies of the same prompt — identical clones converge on the same findings
 and mostly just multiply cost; diversity catches failure modes redundancy
-can't. Synthesize their MUST-FIXes into one list before acting on them.
+can't. When running 2+ passes, also vary the order/framing each one sees
+(e.g. which file it reads first) even across the same lens — reading file A
+before B forms hypotheses that filter what gets noticed in B, and reversing
+the order surfaces different findings from an otherwise-identical reviewer.
+Weight a finding multiple passes converge on independently over a singleton
+flag from just one; don't merge every pass's list into one undifferentiated
+MUST-FIX pile treating all findings as equally confident.
 
 - Why: a single self-review after writing the fix tends to confirm the
   author's own framing rather than challenge it. An independent, adversarial
