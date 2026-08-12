@@ -31,6 +31,7 @@ Per-area, low-friction logs — created on demand, not pre-provisioned. See
 the distillation process that keeps these from growing forever.
 
 - [`findings/qa.md`](reference/findings/qa.md) — seeded, active
+- [`findings/merge-conflicts.md`](reference/findings/merge-conflicts.md) — seeded, active
 
 ## Install (team)
 
