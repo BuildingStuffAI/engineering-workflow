@@ -23,6 +23,28 @@ exchange.** "Should work" is not evidence. See
 
 Everything below expands on these two, plus adjacent discipline.
 
+## Gates persist for the whole mission
+
+Finishing one stage does not retire this skill for the rest of the session.
+Each trigger below re-arms its gate independently, every time it happens —
+not once per mission, not "already covered earlier":
+
+| Trigger (recurs, doesn't happen once) | Re-armed gate |
+|---|---|
+| Any code edit, however small | Tests before/during/after — [verification.md](reference/verification.md) |
+| Opening/pushing to a branch or PR, even a small follow-up on an already-reviewed branch | Hard-TL adversarial review — [git-and-safety.md](reference/git-and-safety.md) |
+| A commit | Secrets/staged-diff check — [git-and-safety.md](reference/git-and-safety.md) |
+| Any claim of completion/fix/pass | Fresh evidence gate — [verification.md](reference/verification.md) |
+| A retroactive question ("did you do X?") | Re-check actual evidence before answering, never memory — [verification.md](reference/verification.md) |
+
+Track this with an explicit `TaskCreate` checklist per mission instead of
+memory: at mission start, create one task per gate expected to recur; the
+next time its trigger fires, re-open that same task rather than assuming a
+stage that ran once already covers what comes after it. If a gate is
+genuinely unnecessary for a specific trigger, say so out loud with the
+reason, in that moment — a silent skip is exactly the failure this table
+exists to prevent, not a judgment call to make quietly.
+
 ## Areas
 
 - **[Planning and scope](reference/planning-and-scope.md)** — plan before
@@ -38,8 +60,10 @@ Everything below expands on these two, plus adjacent discipline.
   safety (`git status` before anything destructive, never force-push to
   shared branches); secrets/review before push; commit and push to a branch
   freely, but gate PRs and pushes-to-main as a separate explicit ask every
-  time; a hard-TL adversarial subagent review pass before opening a PR;
-  per-repo delivery conventions differ, confirm don't assume.
+  time; a hard-TL adversarial review pass before opening a PR — preferring a
+  dedicated code-review/multi-agent/code-comprehension tool when one exists,
+  falling back to a hand-rolled skeptical subagent when none does; per-repo
+  delivery conventions differ, confirm don't assume.
 - **[Merge conflicts](reference/merge-conflicts.md)** — treat a conflict as a
   task, not a keystroke: plan before resolving, never blindly take "ours" or
   "theirs" on a whole file, re-verify and re-review after resolving, escalate
@@ -49,10 +73,11 @@ Everything below expands on these two, plus adjacent discipline.
   build — don't build/ship unless asked; ticket discipline scoped to the
   whole connected change.
 - **[Using specialized skills](reference/using-specialized-skills.md)** —
-  check for and use an existing debugging/TDD/planning/code-review/design
-  skill or plugin before hand-rolling the equivalent inline; close the loop
-  (self-review, update docs, proactive context-limit handoff, get it right on
-  a branch before promoting to production).
+  check for and use an existing debugging/TDD/planning/code-review/design/
+  code-comprehension/multi-agent-orchestration skill or plugin before
+  hand-rolling the equivalent inline, including for the hard-TL review
+  itself; close the loop (self-review, update docs, proactive context-limit
+  handoff, get it right on a branch before promoting to production).
 - **[QA and production verification](reference/qa-and-production-verification.md)**
   — re-verifying already-merged/shipped work: confirming merge actually
   deployed (don't assume push = live, especially with concurrency-cancelled
@@ -65,9 +90,13 @@ Everything below expands on these two, plus adjacent discipline.
 - **[Self-improvement](reference/self-improvement.md)** — how this skill
   compounds without bloating: log real findings cheaply per-area in
   [reference/findings/](reference/findings/), then periodically distill
-  anything durable into this skill's own rule text and thin the log —
-  keeps this repo app-agnostic (generalizable lesson first, project
-  specifics optional) even though multiple projects feed it over time.
+  anything durable into this skill's own rule text and thin the log — keeps
+  this repo app-agnostic (generalizable lesson first, project specifics
+  optional) even though multiple projects feed it over time — plus a
+  periodic outward-looking frontier scan (web search for new AI-assisted
+  engineering techniques/tools, evaluated and proposed as a diff, never
+  auto-merged) so the skill keeps gaining capability, not just avoiding
+  repeat mistakes.
 
 ---
 

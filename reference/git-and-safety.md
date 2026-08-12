@@ -38,9 +38,16 @@ confirm before it goes anywhere.
 ## Hard-TL adversarial review before opening a PR
 
 Before opening a PR (once tests/tsc/build are green and the diff is what you
-intend to ship), run one adversarial review pass — dispatch a fresh
-subagent with no context from your work, told explicitly to act as a very
-hard, skeptical tech lead trying to find real problems, not rubber-stamp.
+intend to ship), run one adversarial review pass with no context from your
+own work, told explicitly to act as a very hard, skeptical tech lead trying
+to find real problems, not rubber-stamp. **Check
+[using-specialized-skills.md](using-specialized-skills.md)'s "Prefer
+delegation for the hard-TL review" first** — if a code-review skill,
+multi-agent orchestration tool, or code-comprehension skill is available in
+this environment, use those instead of hand-rolling the pass described
+below. What follows is the fallback shape for when none of those exist, and
+the concrete checklist any of those tools should still be pointed at:
+
 Give it the diff (or `git show`/`git diff <base>`), the root-cause story, and
 a concrete checklist of specific things to hunt for (not "review this" —
 name the actual risk vectors: wrong-value substitutions, missed sibling
@@ -50,6 +57,13 @@ anything scope-adjacent that changed but shouldn't have). Require it to
 verify claims itself (grep, re-run commands) rather than trust the diff's own
 commit message, and to report findings as MUST-FIX vs. nice-to-have vs.
 non-issues-checked-and-ruled-out — not a bare "looks good."
+
+If using a multi-agent orchestration tool, prefer 2-3 reviewers with
+*distinct* lenses (e.g. correctness/"what else reaches this state",
+security/data-integrity, would-existing-tests-catch-a-regression) over more
+copies of the same prompt — identical clones converge on the same findings
+and mostly just multiply cost; diversity catches failure modes redundancy
+can't. Synthesize their MUST-FIXes into one list before acting on them.
 
 - Why: a single self-review after writing the fix tends to confirm the
   author's own framing rather than challenge it. An independent, adversarial
@@ -62,11 +76,15 @@ non-issues-checked-and-ruled-out — not a bare "looks good."
   cross-repo redirect fix, a billing double-charge, a discarded-async-result
   bug) — the recurring blind spot it catches is "what/who else reaches this
   state."
-- How to apply: proportional to the change's risk, not its line count — a
-  five-line CSS fix in a shared design-token file still warrants a pass if
-  it's touching something other code depends on; a pure rename in a single
-  call site may not need one. Fix whatever the review confirms as real,
-  re-verify, then proceed to the PR/push gate above.
+- How to apply: **the default is to always run it**, once per PR/push, every
+  time — including a small follow-up push on a branch already reviewed
+  earlier in the session. Self-judging a diff as "too small to need it" is
+  the exact silent-skip failure mode this rule exists to close; if a diff
+  genuinely seems trivial enough to skip (a pure rename in a single call
+  site, a comment-only change), say so out loud to the user before opening
+  the PR and get their agreement — don't decide it quietly and skip. Fix
+  whatever the review confirms as real, re-verify, then proceed to the
+  PR/push gate above.
 
 ## Per-repo conventions differ
 

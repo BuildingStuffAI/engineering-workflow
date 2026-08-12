@@ -62,3 +62,5 @@ verify before continuing:
 | Trusting a subagent's/tool's own "success" report | Verify independently (diff, output, re-run). |
 | "Partial check is enough" / "the linter passed" | A linter is not a compiler; a partial check is not a full one. |
 | Retrying the same fix a second time with no new information | Stop — go find the actual root cause first. |
+| "Already did this gate earlier in the session, this is a small follow-up" | Wrong — each new edit/branch/PR re-arms its gate independently. See SKILL.md "Gates persist for the whole mission." |
+| Asked "did you do X?" (run tests, use hard-TL review, etc.) | Re-check the actual transcript/diff/git log/test output for evidence before answering. If there's no evidence, say so — don't answer from memory or assume it happened because it usually does. |

@@ -1,8 +1,8 @@
 {
   "name": "engineering-workflow",
   "displayName": "Engineering Workflow",
-  "version": "2.3.0",
-  "description": "General software-engineering workflow discipline: plan-then-decompose, one-action functions, evidence-before-claims verification with bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, hard-TL adversarial review before opening a PR, merge-conflict resolution discipline, version-bump hygiene, file-creation approval, ticket discipline, post-merge/production QA verification with a persistent findings log, self-improvement via per-area findings logs distilled back into the skill's own rules, and using specialized skills/plugins instead of reinventing them. App-agnostic — usable in any repo.",
+  "version": "2.4.0",
+  "description": "General software-engineering workflow discipline: plan-then-decompose, one-action functions, evidence-before-claims verification with bounded loop-until-verified, gates that persist and re-arm across the whole mission (not just once per session), destructive-action safety, secret hygiene, git/PR gating, hard-TL adversarial review before every PR/push, merge-conflict resolution discipline, version-bump hygiene, file-creation approval, ticket discipline, post-merge/production QA verification with a persistent findings log, self-improvement via per-area findings logs distilled back into the skill's own rules plus a periodic outward-looking frontier scan for new AI-assisted engineering techniques, and using specialized skills/plugins instead of reinventing them. App-agnostic — usable in any repo.",
   "author": {
     "name": "Aviel Pahima",
     "email": "aviel.p@angelo.ai"

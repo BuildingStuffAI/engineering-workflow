@@ -2,19 +2,34 @@
 
 This skill is meant to compound — every session that uses it should be able
 to leave it slightly better than it found it, without turning it into an
-ever-growing pile nobody reads. That requires two distinct layers, not one:
+ever-growing pile nobody reads. That requires three distinct layers, not
+one — two that learn from *this skill's own mistakes*, and one that goes
+looking *outward* so the skill doesn't just get more correct, it keeps
+growing new capability:
 
 1. **Findings logs** ([reference/findings/](findings/)) — fast, cheap,
-   per-session. Append a dated entry the moment something real is learned.
+   per-session. Append a dated entry the moment something real is learned
+   from a correction or a confirmed pattern.
 2. **Distillation** — slow, periodic. Read the accumulated entries, promote
    whatever is durable and generalizable into the actual rule text in
    `SKILL.md`/`reference/*.md`, then thin the log.
+3. **Frontier scan** ([below](#layer-3--frontier-scan-do-this-periodically-look-outward))
+   — slow, periodic, but *outward-looking* rather than reactive: actively
+   search for engineering-workflow techniques, patterns, and tools that
+   didn't come from a mistake in this repo at all, evaluate them, and fold
+   the ones that generalize into the rule text the same way distillation
+   does.
 
-Skipping layer 2 is the failure mode: a log that only ever grows becomes
+Skipping layer 2 is one failure mode: a log that only ever grows becomes
 expensive to load and nobody re-reads it, which is worse than not logging at
 all. The log is raw material; the reference docs are the actual product.
 Only the reference docs should compound — the log should stay roughly
 constant-sized over time, churning as entries get promoted or pruned.
+
+Skipping layer 3 is the other, quieter failure mode: a skill that only ever
+reacts to its own past mistakes plateaus at "doesn't repeat old errors" and
+never gets meaningfully more capable. Real growth needs new input from
+outside this repo's own incident history, not just a longer memory of it.
 
 ## Layer 1 — logging (do this often, keep it cheap)
 
@@ -86,6 +101,64 @@ discipline the rest of this skill teaches, applied reflexively: don't
 promote a one-off anecdote into a durable rule on a single data point, and
 don't claim a lesson is "learned" by the skill until it's actually in the
 prose a future session will read.
+
+## Layer 3 — frontier scan (do this periodically, look outward)
+
+**Trigger** — any of: the user asks to run a self-improvement/frontier pass;
+a distillation pass (Layer 2) is already happening and it's a natural moment
+to also look outward; or noticeably long real-world time has passed since
+the last scan (this file has no memory of dates on its own — check
+`git log -- reference/self-improvement.md` and the frontier section below for
+the last recorded scan date).
+
+**What a frontier scan actually does** — this is research, not
+implementation, and it produces a proposal, never a silent edit:
+
+1. Search outward for what's new in AI-assisted engineering workflow since
+   the last scan: `WebSearch`/`WebFetch` for recent developments in agentic
+   coding practice, spec-driven/plan-driven workflows, verification and
+   eval techniques, prompt-engineering and skill-authoring patterns, and
+   notable tools/repos in the space (e.g. other public agent-skill
+   collections, Anthropic's own published engineering/agent-skill guidance,
+   widely-discussed post-mortems of AI-assisted engineering failures).
+   Cast wide on the query terms — "AI agent code review workflow",
+   "agentic coding best practices", "claude code skills patterns",
+   "spec-driven development", "LLM verification hallucination mitigation" —
+   rather than one narrow search.
+2. For each candidate finding, evaluate it against what this skill already
+   is, not just whether it sounds good in isolation:
+   - Does it generalize across languages/repos, or is it tool-specific in a
+     way that would break the app-agnostic constraint below?
+   - Does it fill a real gap in an existing Area, or does it duplicate a
+     rule that already exists in different words?
+   - Is it a genuine technique/discipline, or a one-off anecdote/marketing
+     claim dressed up as a pattern? Skepticism here matters more than
+     coverage — adding a bad rule is worse than missing a good one.
+3. Write candidates up the same way a findings-log entry works (generic
+   lesson first, source/context second) and propose them to the user as a
+   diff — same commit-approval discipline as any other change to this
+   shared repo (see git-and-safety.md). Never auto-merge a frontier finding
+   into the rule text without the user seeing and approving the actual
+   wording; "the web says so" is not evidence-before-claims, it's a
+   secondhand claim that still needs the user's judgment call.
+4. Record the scan itself, even when nothing new was adopted: date, what was
+   searched, what was found and rejected and why. This is what lets the
+   next scan pick up from here instead of re-covering the same ground —
+   append it to `reference/findings/self-improvement.md` (create it on
+   first use, same "create on demand" rule as any other findings log).
+5. Bump `version` in `.claude-plugin/plugin.json` only if something was
+   actually adopted into the rule text — a scan that found nothing worth
+   adopting is not a behavior change.
+
+**Why this is a separate layer from distillation:** Layer 2 promotes
+lessons this skill already learned the hard way, inside one repo's own
+history. Layer 3 exists because the field this skill describes — AI-assisted
+engineering practice — keeps moving, and a skill that never looks outside
+its own incident log will fall behind changes it never had a chance to learn
+from firsthand (new verification techniques, new failure modes other people
+already hit, new tools worth adopting). The goal is a skill that stays
+current with how AI-assisted engineering is actually practiced, not just one
+that never repeats its own past mistakes.
 
 ## Keep this repo app-agnostic while doing all of this
 

@@ -22,6 +22,10 @@ teams'/authors' equivalents the same way.
   implementation plans before code changes.
 - **Code review**: bundled `/code-review` and `/security-review` skills for
   reviewing a diff or pending changes.
+- **Code comprehension**: a skill that gates on actually understanding
+  AI-generated code (algorithms, backend/DB, frontend) before accepting it,
+  where available — catches "looks good, ship it" acceptance of code nobody
+  actually verified.
 - **Debugging**: a systematic root-cause-first methodology (e.g. the
   `systematic-debugging` skill in the
   [Superpowers marketplace](https://github.com/obra/superpowers-marketplace))
@@ -33,6 +37,10 @@ teams'/authors' equivalents the same way.
   `subagent-driven-development`) — install via
   `/plugin marketplace add obra/superpowers-marketplace` then
   `/plugin install superpowers@superpowers-marketplace` if not already present.
+- **Multi-agent orchestration**: a workflow/orchestration tool capable of
+  running several independent subagents (e.g. diverse review lenses) and
+  synthesizing their results, where available — turns a single ad-hoc
+  review subagent into a real panel instead of one perspective.
 - **UI/design work**: a frontend-design skill for distinctive visual design
   decisions, and a dataviz skill for charts/dashboards, where available.
 
@@ -40,6 +48,35 @@ Don't assume any of these are installed — check what's actually available
 (skill listing, `/plugin` menu) before relying on one, and say so if something
 the task needs isn't available rather than silently working around its
 absence.
+
+## Prefer delegation for the hard-TL review
+
+The hard-TL adversarial review before a PR ([git-and-safety.md](git-and-safety.md))
+is the clearest case where this skill should stand on other tools' shoulders
+rather than own the whole technique itself. In order of preference, use
+whatever of these actually exist in the current environment:
+
+1. **A dedicated code-review skill/plugin**, run at its highest effort
+   level, for the mechanical pass (bugs, simplification, efficiency).
+2. **A multi-agent orchestration tool**, to run 2-3 *diverse-lens* reviewers
+   in parallel (e.g. correctness/"what else reaches this state",
+   security/data-integrity, would-existing-tests-catch-a-regression) plus a
+   synthesis step that merges MUST-FIXes — see the "diverse-lens" wording
+   in git-and-safety.md for why more identical clones isn't better, but a
+   few distinct lenses is.
+3. **A code-comprehension-verification skill**, additionally, whenever the
+   diff contains non-trivial AI-generated logic (an algorithm, a query, a
+   migration, a non-trivial component) — separate from "is this correct" is
+   "does anyone actually understand why," and a skill built for that catches
+   a different failure mode than a review does.
+4. **The inline single-subagent instructions in git-and-safety.md**, as the
+   fallback when none of the above are available — that text stays in this
+   skill precisely so it still works standalone, with nothing else
+   installed, not as the preferred path when something better exists.
+
+This is the same principle as the rest of this file, made concrete for the
+one step in this skill most likely to be reinvented worse than tools that
+already exist for it.
 
 ## Closing the loop
 

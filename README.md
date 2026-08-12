@@ -21,8 +21,9 @@ repo/language.
 - [`using-specialized-skills.md`](reference/using-specialized-skills.md)
 - [`qa-and-production-verification.md`](reference/qa-and-production-verification.md)
 - [`self-improvement.md`](reference/self-improvement.md) — how this skill
-  compounds: per-area findings logs, distilled periodically into this
-  skill's own rules
+  compounds: per-area findings logs distilled periodically into this
+  skill's own rules, plus a periodic outward-looking frontier scan for new
+  AI-assisted engineering techniques/tools
 
 ### Findings logs (`reference/findings/`)
 
