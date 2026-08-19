@@ -1,12 +1,30 @@
 # Planning and scope
 
 ## Contents
+- Clarify before you plan
 - Plan before code
+- Architecture decisions, explained plainly
 - Break missions into small, verified steps
 - Read the reference completely before implementing
 - Keep the user in the loop with small increments
 - Modularity and one-action functions
 - File-creation approval
+
+## Clarify before you plan
+
+An underspecified request planned confidently is still underspecified — it
+just looks finished. Before planning, name what's actually ambiguous (which
+of 2+ real behaviors was meant, an unstated scale/scope, a missing edge
+case) and ask, rather than picking the most-likely reading and running with
+it. This matters most for whoever wrote the request with the least
+engineering background — they're the least able to catch a wrong guess by
+reading a diff. A guess that turns out wrong costs more (redone work, a
+regressed decision) than one clarifying question up front.
+
+Don't over-apply this: a request with one obvious reading doesn't need a
+question invented for it. The test is "would two competent engineers
+reasonably disagree about what was meant," not "is there any conceivable
+alternative."
 
 ## Plan before code
 
@@ -24,6 +42,24 @@ prove each criterion true — this is what the evidence gate in
 [verification.md](verification.md) gets run against later; leaving it
 implicit invites eyeballing the spec at completion time instead of
 checking it against something real.
+
+## Architecture decisions, explained plainly
+
+When a step has a real design choice (which library, which data model, sync
+vs. async, build-vs-reuse, an approach with a scaling/cost/security
+tradeoff) — not a mechanical one with a single obvious answer — name at
+least one alternative, state the tradeoff in plain language (cost, speed,
+complexity to maintain, risk), and give a recommendation before writing
+code. "Plain language" means a reader with no engineering background could
+follow *why*, not just *what*. This is a small tax on a genuine fork in the
+road, not a ceremony for every line — most steps have one obvious way to do
+them and don't need this.
+
+Treat this as the mechanism that lets someone who doesn't know the
+domain still make the call, or delegate it back knowingly: state the
+recommendation, don't just silently pick one and move on, unless the
+choice is truly inconsequential (either way is fine, revisit later costs
+nothing).
 
 ## Break missions into small, verified steps
 
@@ -64,6 +100,16 @@ skipped.
 - Match existing conventions even where you'd choose differently. No dead
   code, no commented-out code, no backwards-compat shims for internal-only
   code.
+
+## Red flags — modularity
+
+| Excuse | Reality |
+|---|---|
+| "I'll just add a branch/param to this existing function" | A new case is a new action — new function, unless it's genuinely the same operation. |
+| "It's only N lines, splitting it out would be over-engineering for this" | Size isn't the test — a 2-line branch that adds a new case is still a new action. If the user explicitly asked for this exact shape, say so out loud and name the tradeoff (see "Architecture decisions, explained plainly") rather than silently complying or silently overriding. |
+| "It's easier to keep it in one file for now" | A distinct concern gets its own file even if "for now" feels faster. |
+| "While I'm in here, I'll also improve/clean up X" | Not requested — every changed line should trace to the actual ask. |
+| "I'll refactor/modularize this at the end" | Do it in the same edit — a deferred cleanup is a cleanup that doesn't happen. |
 
 ## File-creation approval
 

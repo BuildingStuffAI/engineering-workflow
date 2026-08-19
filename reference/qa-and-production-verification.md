@@ -24,8 +24,10 @@ this works in production" / "QA this ticket."
 
 1. **Confirm the ticket → PR → merge → deploy chain**, in that order, before
    touching code-level analysis. Use `gh pr view` / `gh pr list` to find the
-   actual merged PR per ticket (a ticket number is not a PR number). Then
-   confirm the deploy:
+   actual merged PR per ticket (a ticket number is not a PR number — and a
+   ticket ID that coincidentally matches a PR's number, e.g. ticket "X-119"
+   and "PR #119", is a trap: confirm by reading the actual diff and commit
+   intent, never by pattern-matching the numbers). Then confirm the deploy:
    - **Deploy confirmation, don't assume merge = deployed.** If deploys
      trigger on push-to-`main` with a `concurrency` group and
      `cancel-in-progress: true` (a common pattern to avoid overlapping
@@ -56,7 +58,17 @@ this works in production" / "QA this ticket."
    collisions (CSS specificity + source order, shared hook state, shared
    color tokens) — diffing each branch against its own base won't show
    this; diff the real merge commit, or read the final file directly via
-   `git show <tip-sha>:<path>`.
+   `git show <tip-sha>:<path>`. Also check for **leftover duplicate UI/logic
+   paths** (an old v1 component still reachable alongside its v2
+   replacement) — a fix applied only to the new path can leave the old one
+   still reachable and still broken.
+   - **Before concluding a surprising result is a regression, confirm
+     you're looking at the actual built/deployed artifact**, not stale or
+     duplicate state — a leftover install, a differently-flavored/cached
+     build, or an unrelated package with a similar name can produce a
+     symptom that looks exactly like the bug you're checking for (e.g.
+     `pm list packages | grep <name>` on a shared test device before
+     diagnosing a surprise UI element as a regression).
 
 3. **Run the actual regression tests against the merged tip**, not just
    trust that they passed in CI on each branch — a clean merge can still
@@ -108,6 +120,14 @@ saying which one it rests on. State it explicitly per item, e.g.:
   its test suite against the real merged tip, but did not click it live.
 - "PASS (live-confirmed)" — you actually drove the real running app and
   observed the behavior yourself.
+
+An emulator/simulator and a real device are also different tiers, not
+interchangeable "live-confirmed" — a layout/rendering fix can pass cleanly
+on a tall emulator viewport and still fail on a real phone's actual
+dimensions, font scale, or OS chrome. Name which one backed the check
+("live-confirmed, emulator only" vs "live-confirmed, real device") whenever
+the bug class (clipping, sizing, rendering) is one an emulator might not
+reproduce faithfully.
 
 This matters because the first two steps of this process (deploy
 confirmation, cross-PR collision check) and step 3 (running tests) can all

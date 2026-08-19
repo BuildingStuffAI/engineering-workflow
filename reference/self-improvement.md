@@ -70,11 +70,13 @@ below) — not a sign to write more.
 
 ## Layer 2 — distillation (do this occasionally, on a trigger)
 
-**Trigger** — any of: a log file has accumulated roughly 6-8 entries; the
-same lesson shows up a second time in the same log; or you're starting new
-work in an area and its log has anything unread. Whoever notices the
-trigger does the distillation — it doesn't have to be the session that
-wrote the entry.
+**Trigger** — any of: a log file has accumulated roughly 6-8 entries; **a
+single entry alone runs past ~30 lines** (entry-size matters as much as
+entry-count — 4 sprawling entries can already be more expensive to load
+than 8 tight ones); the same lesson shows up a second time in the same log;
+or you're starting new work in an area and its log has anything unread.
+Whoever notices the trigger does the distillation — it doesn't have to be
+the session that wrote the entry.
 
 **What distillation actually does:**
 

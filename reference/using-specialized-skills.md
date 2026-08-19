@@ -7,21 +7,41 @@
 
 ## Check before you hand-roll
 
-Before improvising a process inline for something that's a well-known,
-well-solved problem (debugging methodology, plan-then-execute workflows, code
-review, TDD, UI/design work), check whether a specialized skill or plugin
-already covers it — built-in, previously installed, or available from a
-marketplace. A maintained, battle-tested skill beats an ad-hoc version of the
-same thing written from scratch mid-task. This applies recursively: this
-skill itself is exactly that kind of reusable, installable unit — treat other
-teams'/authors' equivalents the same way.
+**Before improvising a process inline for a well-known, well-solved problem
+(debugging methodology, plan-then-execute workflows, code review, TDD,
+UI/design work), search the skill listing/tool search for a name matching
+the problem domain — this is a concrete action, not a mental check.** Don't
+rely on remembering what's installed; a matching skill you don't invoke is
+the same as it not existing. A maintained, battle-tested skill beats an
+ad-hoc version of the same thing written from scratch mid-task. This applies
+recursively: this skill itself is exactly that kind of reusable, installable
+unit — treat other teams'/authors' equivalents the same way.
+
+**REQUIRED SUB-SKILL:** Use the installed test-driven-development skill (or
+equivalent) whenever writing a new function/feature, instead of following
+only this skill's summary in [verification.md](verification.md) — the
+dedicated skill enforces the write-test-first order; this file's version is
+the fallback for when nothing else is installed, not the preferred path.
 
 ## What's usually already available
 
 - **Planning**: Claude Code's own Plan mode/agent for structured
   implementation plans before code changes.
+- **Ambiguous/creative asks**: a brainstorming skill (e.g.
+  `superpowers:brainstorming`) for exploring intent and requirements before
+  committing to a plan — pairs with "Clarify before you plan" in
+  [planning-and-scope.md](planning-and-scope.md).
 - **Code review**: bundled `/code-review` and `/security-review` skills for
-  reviewing a diff or pending changes.
+  reviewing a diff or pending changes. Run `/security-review` specifically
+  whenever a change touches auth, secrets, user input handling, payments, or
+  anything crossing a trust boundary — don't fold that into the general
+  hard-TL pass and hope it's covered, and don't skip it because the diff
+  looks small or the fix seems obvious: doing the equivalent scrutiny
+  yourself instead of running the tool is exactly the self-judged-size skip
+  the hard-TL gate already forbids, applied to a different gate. Catching
+  the actual bug by hand doesn't retroactively make skipping the tool the
+  right call — say so out loud if you think this one genuinely doesn't need
+  it, rather than deciding quietly.
 - **Code comprehension**: a skill that gates on actually understanding
   AI-generated code (algorithms, backend/DB, frontend) before accepting it,
   where available — catches "looks good, ship it" acceptance of code nobody

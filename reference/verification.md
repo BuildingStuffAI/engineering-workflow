@@ -28,11 +28,29 @@ didn't.
 
 - **Before**: confirm the current baseline is actually green before you start.
 - **During**: a new function/feature gets its test alongside it — real edge
-  cases, not one happy path.
+  cases, not one happy path. A test that mocks away the exact mechanism a
+  bug lives in (e.g. hardcoding the value a build step would normally
+  compute) proves nothing about that bug — it would pass identically
+  whether the bug were present or reintroduced. Check the test actually
+  exercises the real pipeline/mechanism, not a stand-in for it.
 - **After**: re-run the full suite, not just the new test. For UI/behavior
   changes, verify in the running app if at all possible. "Verified in
   isolation" ≠ "verified together" — do one combined regression pass across
   the whole change before calling it done, not just per-piece checks.
+
+**Violating the letter of "test alongside" is violating the spirit of it.**
+Writing the test in a later turn, or after saying "done," is not "during" —
+it's "after," restated. If the installed TDD skill is available, dispatch it
+instead of improvising this inline — it enforces the write-test-first order
+this section only summarizes.
+
+| Excuse | Reality |
+|---|---|
+| "I'll add tests after this stage" | After never comes as a real turn — write it alongside, same turn, before moving on. |
+| "It's a simple function, doesn't need a test" | Simple functions still have a wrong-input/empty/boundary case. Test it anyway. |
+| "The existing suite probably covers this" | "Probably" isn't evidence — grep for the actual test name, or write one. |
+| "One happy-path test is enough" | Add the edge and error cases too, not just the golden path. |
+| "I'll modularize/clean this up at the end" | Do it now, in the same function you're writing — "later" becomes a separate ask nobody made. |
 
 ## Loop until verified — but bounded
 

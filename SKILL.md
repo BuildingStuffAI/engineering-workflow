@@ -1,6 +1,6 @@
 ---
 name: engineering-workflow
-description: General software-engineering workflow discipline for any repo — plan before code, mission decomposition into small verified steps, one-action functions, evidence-before-claims verification, bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, merge-conflict resolution discipline, version-bump hygiene, file-creation approval, ticket discipline, post-merge/production QA verification with a persistent findings log, self-improvement via per-area findings logs distilled back into the skill's own rules, and using specialized skills/plugins (debugging, TDD, planning, code review, design) instead of reinventing them. Use at the start of and throughout any non-trivial engineering task (fix, feature, refactor) in any language or codebase, including when resolving a merge conflict, verifying already-merged/deployed work actually works, or logging/distilling a session's findings back into this skill.
+description: General software-engineering workflow discipline for any repo — plan before code, mission decomposition into small verified steps, one-action functions, evidence-before-claims verification, bounded loop-until-verified, destructive-action safety, secret hygiene, git/PR gating, merge-conflict resolution discipline, version-bump hygiene, file-creation approval, ticket discipline, post-merge/production QA verification with a persistent findings log, self-improvement via per-area findings logs distilled back into the skill's own rules, and using specialized skills/plugins (debugging, TDD, planning, code review, design) instead of reinventing them. Use at the start of and throughout any task that changes code behavior, in any language/codebase — a short diff ("just add one branch") is not trivial merely for being short, don't pre-judge it as too small to invoke this skill.
 ---
 
 # Engineering Workflow
@@ -11,6 +11,30 @@ they conflict — this is the floor, not a ceiling.
 
 **Tradeoff:** biases toward caution over speed. Use judgment on trivial work —
 don't ceremony-gate a typo fix.
+
+## Trivial-task fast path
+
+Before reading anything below: is this a small, low-risk, single-file change
+(a typo, a rename, a comment, an obvious one-liner fix with a single correct
+answer) with no new files, no push/PR, and no completion claim about someone
+else's system? If yes, **do not read any reference/*.md file** — state the
+one-line plan out loud, make the edit, run/verify it if trivially checkable,
+done. Loading full reference docs for a two-line fix is the ceremony this
+skill explicitly tells you not to do (see planning-and-scope.md's "don't
+ceremony-gate trivial work" — but you don't need to open that file to know
+it).
+
+**Line count is not the test.** Adding a new case/branch/behavior to
+existing code is never trivial, even when it's two lines — it's a design
+decision (see "Architecture decisions" and "Red flags — modularity" in
+planning-and-scope.md), not a mechanical fix, and skips the modularity gate
+if waved through here. The test is "does this have a single obviously
+correct form," not "is the diff short."
+
+Reference files are loaded **lazily, one at a time, only when their specific
+gate actually fires** — never as a batch at skill-start. Opening a PR fires
+git-and-safety.md; nothing else on the list needs opening yet. A completion
+claim fires verification.md. Don't pre-load the rest "to be thorough."
 
 ## The two hard gates
 
@@ -31,7 +55,13 @@ not once per mission, not "already covered earlier":
 
 | Trigger (recurs, doesn't happen once) | Re-armed gate |
 |---|---|
+| Request has 2+ reasonable readings | Ask, don't guess — [planning-and-scope.md](reference/planning-and-scope.md) "Clarify before you plan" |
+| A step has a real design choice (library, data model, security posture, sync-vs-async) | Name the tradeoff + recommendation in plain language before coding — [planning-and-scope.md](reference/planning-and-scope.md) "Architecture decisions" |
+| Change touches auth, secrets, user input, payments, or a trust boundary | Run `/security-review` — [using-specialized-skills.md](reference/using-specialized-skills.md). Default is to always run it; self-judging the diff "too small/quick to bother" is the same silent-skip failure the hard-TL gate forbids — say so out loud and get agreement instead of deciding quietly. |
 | Any code edit, however small | Tests before/during/after — [verification.md](reference/verification.md) |
+| A new function/behavior is written | Its test is written in the SAME turn, not "after" — [verification.md](reference/verification.md). Prefer dispatching the installed TDD skill over improvising this inline. |
+| Code could be squeezed into an existing function/file instead of a new one | Modularity check before writing — [planning-and-scope.md](reference/planning-and-scope.md) |
+| About to hand-roll a process for a well-known problem (debugging, review, TDD, planning) | Search installed skills first — [using-specialized-skills.md](reference/using-specialized-skills.md) |
 | Opening/pushing to a branch or PR, even a small follow-up on an already-reviewed branch | Hard-TL adversarial review — [git-and-safety.md](reference/git-and-safety.md) |
 | A commit | Secrets/staged-diff check — [git-and-safety.md](reference/git-and-safety.md) |
 | Any claim of completion/fix/pass | Fresh evidence gate — [verification.md](reference/verification.md) |
@@ -47,8 +77,10 @@ exists to prevent, not a judgment call to make quietly.
 
 ## Areas
 
-- **[Planning and scope](reference/planning-and-scope.md)** — plan before
-  code; break missions into small, independently-verified steps; read a
+- **[Planning and scope](reference/planning-and-scope.md)** — clarify
+  ambiguous requests before planning, not after; plan before code; name
+  tradeoffs and a recommendation in plain language for real design
+  decisions; break missions into small, independently-verified steps; read a
   reference/spec completely before implementing; keep the user in the loop
   with small increments; one function = one action; modularity and scope
   discipline (no unrequested abstractions); file-creation needs approval.
